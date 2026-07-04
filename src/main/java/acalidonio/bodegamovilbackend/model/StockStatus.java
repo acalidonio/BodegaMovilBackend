@@ -1,4 +1,4 @@
-package acalidonio.bodegamovilbackend.inventory;
+package acalidonio.bodegamovilbackend.model;
 
 public enum StockStatus {
     AVAILABLE,

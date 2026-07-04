@@ -1,12 +1,12 @@
-package acalidonio.bodegamovilbackend.inventory;
+package acalidonio.bodegamovilbackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "products")
@@ -21,13 +21,11 @@ public class Product {
     
     private String name;
     private String description;
-
+    @Enumerated(EnumType.STRING)
     private StockStatus status;
-    
     private String location;
     private int stock;
-    
-    private String lastAudit;
+    private Date lastAudit;
     
     // Technical specs
     private String innerDiameter;
@@ -35,4 +33,9 @@ public class Product {
     private String width;
     private String weight;
     private String material;
+    
+    @Builder.Default
+    @Column(columnDefinition = "boolean default true")
+    private boolean active = true;
 }
+

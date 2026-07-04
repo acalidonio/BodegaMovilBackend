@@ -1,8 +1,6 @@
-package acalidonio.bodegamovilbackend.auth;
+package acalidonio.bodegamovilbackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +21,9 @@ public class User {
 
     private String initials;
     
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     
     private String passwordHash;
 }
+
