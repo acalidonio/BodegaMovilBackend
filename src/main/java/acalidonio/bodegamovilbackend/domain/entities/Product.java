@@ -1,4 +1,4 @@
-package acalidonio.bodegamovilbackend.model;
+package acalidonio.bodegamovilbackend.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
