@@ -31,7 +31,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                 String path = request.getRequestURI();
                 
                 if (path.startsWith("/api/inventory") && 
-                    (method.equals("POST") || method.equals("PUT") || method.equals("DELETE"))) {
+                    (method.equals("POST") || method.equals("PUT") || method.equals("DELETE") || method.equals("PATCH"))) {
                     if (!"ADMIN".equals(role)) {
                         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                         return false;
