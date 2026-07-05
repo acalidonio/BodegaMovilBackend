@@ -1,6 +1,6 @@
-package acalidonio.bodegamovilbackend.dto;
+package acalidonio.bodegamovilbackend.domain.dto.response;
 
-import acalidonio.bodegamovilbackend.model.Role;
+import acalidonio.bodegamovilbackend.domain.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
