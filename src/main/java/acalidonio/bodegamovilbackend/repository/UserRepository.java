@@ -1,6 +1,6 @@
 package acalidonio.bodegamovilbackend.repository;
 
-import acalidonio.bodegamovilbackend.model.User;
+import acalidonio.bodegamovilbackend.domain.entities.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
