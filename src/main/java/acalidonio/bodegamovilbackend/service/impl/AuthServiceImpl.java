@@ -1,8 +1,9 @@
 package acalidonio.bodegamovilbackend.service.impl;
 
-import acalidonio.bodegamovilbackend.dto.AuthResponse;
-import acalidonio.bodegamovilbackend.dto.LoginRequest;
-import acalidonio.bodegamovilbackend.model.User;
+import acalidonio.bodegamovilbackend.domain.dto.response.AuthResponse;
+import acalidonio.bodegamovilbackend.domain.dto.request.LoginRequest;
+import acalidonio.bodegamovilbackend.domain.entities.User;
+import acalidonio.bodegamovilbackend.exceptions.BusinessRuleException;
 import acalidonio.bodegamovilbackend.repository.UserRepository;
 import acalidonio.bodegamovilbackend.security.JwtUtil;
 import acalidonio.bodegamovilbackend.service.AuthService;
@@ -30,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
                 return new AuthResponse(token, user.getName(), user.getRole());
             }
         }
-        throw new RuntimeException("Credenciales inválidas");
+        throw new BusinessRuleException("Credenciales inválidas");
     }
 }
 
