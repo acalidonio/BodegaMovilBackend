@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -25,5 +28,13 @@ public class User {
     private Role role;
     
     private String passwordHash;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_shift_templates",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "shift_template_id")
+    )
+    private Set<ShiftTemplate> shiftTemplates = new HashSet<>();
 }
 
