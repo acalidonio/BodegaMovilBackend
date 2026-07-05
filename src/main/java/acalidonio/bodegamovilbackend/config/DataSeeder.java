@@ -93,15 +93,21 @@ public class DataSeeder implements CommandLineRunner {
                         .startTime(LocalTime.of(8, 30))
                         .endTime(LocalTime.of(12, 30))
                         .build();
+        ShiftTemplate sundayHalfShift = ShiftTemplate.builder()
+                .name("Domingo - Medio Tiempo")
+                .dayOfWeek(DayOfWeek.SUNDAY)
+                .startTime(LocalTime.of(8, 30))
+                .endTime(LocalTime.of(12, 30))
+                .build();
 
-        shiftTemplateRepository.saveAll(List.of(mondayShift, tuesdayShift, wednesdayShift, thursdayShift, fridayShift, mondayHalfShift, tuesdayHalfShift, wednesdayHalfShift,  thursdayHalfShift, fridayHalfShift));
+        shiftTemplateRepository.saveAll(List.of(mondayShift, tuesdayShift, wednesdayShift, thursdayShift, fridayShift, mondayHalfShift, tuesdayHalfShift, wednesdayHalfShift,  thursdayHalfShift, fridayHalfShift, sundayHalfShift));
 
         String hash = BCrypt.hashpw("password123", BCrypt.gensalt());
 
         User admin = new User("EMP001", "André C", "AC", Role.ADMIN, hash, new HashSet<>());
         User employee = new User("EMP002", "Eduardo C", "EC", Role.EMPLOYEE, hash, new HashSet<>());
 
-        admin.setShiftTemplates(Set.of(mondayShift, tuesdayShift, wednesdayShift, thursdayShift, fridayShift));
+        admin.setShiftTemplates(Set.of(mondayShift, tuesdayShift, wednesdayShift, thursdayShift, fridayShift, sundayHalfShift));
         employee.setShiftTemplates(Set.of(mondayHalfShift, tuesdayHalfShift, wednesdayHalfShift,  thursdayHalfShift, fridayHalfShift));
 
         userRepository.saveAll(List.of(admin, employee));
