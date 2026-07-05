@@ -1,125 +1,98 @@
 package acalidonio.bodegamovilbackend.service.impl;
 
-import acalidonio.bodegamovilbackend.dto.ProductDto;
-import acalidonio.bodegamovilbackend.model.Product;
+import acalidonio.bodegamovilbackend.common.mappers.ProductMapper;
+import acalidonio.bodegamovilbackend.domain.dto.request.CreateProductRequest;
+import acalidonio.bodegamovilbackend.domain.dto.request.UpdateProductRequest;
+import acalidonio.bodegamovilbackend.domain.dto.response.ProductResponse;
+import acalidonio.bodegamovilbackend.exceptions.BusinessRuleException;
+import acalidonio.bodegamovilbackend.exceptions.ResourceNotFoundException;
+import acalidonio.bodegamovilbackend.domain.entities.Product;
 import acalidonio.bodegamovilbackend.repository.ProductRepository;
 import acalidonio.bodegamovilbackend.service.InventoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
 public class InventoryServiceImpl implements InventoryService {
 
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     @Override
-    public List<ProductDto> getAllProducts() {
-        return productRepository.findByActiveTrue().stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public Page<ProductResponse> getAllProducts(Pageable pageable) {
+        Page<Product> products = productRepository.findByActiveTrue(pageable);
+        return productMapper.toDtoList(products);
     }
     
     @Override
-    public List<ProductDto> searchProducts(String query) {
+    public Page<ProductResponse> searchProducts(String query, Pageable pageable) {
         if (query == null || query.trim().isEmpty()) {
-            return getAllProducts();
+            return getAllProducts(pageable);
         }
-        return productRepository.searchProducts(query).stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+        Page<Product> products = productRepository.searchProducts(query, pageable);
+        return productMapper.toDtoList(products);
     }
     
     @Override
-    public Optional<ProductDto> getProductBySku(String sku) {
-        Optional<Product> p = productRepository.findById(sku);
-
-        if (p.isPresent() && p.get().isActive()) {
-            return Optional.of(mapToDto(p.get()));
-        }
-        return Optional.empty();
+    public ProductResponse getProductBySku(String sku) {
+        Product p = productRepository.findById(sku)
+                .filter(Product::isActive)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado o inactivo"));
+        
+        return productMapper.toDto(p);
     }
     
     @Override
-    public ProductDto createProduct(ProductDto productDto) {
-        Product product = mapToEntity(productDto);
-        product.setActive(true);
+    public ProductResponse createProduct(CreateProductRequest request) {
+        Product product = productMapper.toEntityCreate(request);
+        product.setLastAudit(new Date());
 
         Product savedProduct = productRepository.save(product);
-        return mapToDto(savedProduct);
+        return productMapper.toDto(savedProduct);
     }
     
     @Override
-    public ProductDto updateProduct(String sku, ProductDto productDto) {
-        Optional<Product> productOpt = productRepository.findById(sku);
+    public ProductResponse updateProduct(String sku, UpdateProductRequest request) {
+        Product existingProduct = productRepository.findById(sku)
+                .filter(Product::isActive)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado o ya es inactivo"));
 
-        if (productOpt.isPresent() && productOpt.get().isActive()) {
-            Product existingProduct = productOpt.get();
-
-            existingProduct.setName(productDto.getName());
-            existingProduct.setDescription(productDto.getDescription());
-            existingProduct.setStatus(productDto.getStatus());
-            existingProduct.setLocation(productDto.getLocation());
-            existingProduct.setStock(productDto.getStock());
-            existingProduct.setLastAudit(productDto.getLastAudit());
-            existingProduct.setInnerDiameter(productDto.getInnerDiameter());
-            existingProduct.setOuterDiameter(productDto.getOuterDiameter());
-            existingProduct.setWidth(productDto.getWidth());
-            existingProduct.setWeight(productDto.getWeight());
-            existingProduct.setMaterial(productDto.getMaterial());
-
-            Product updatedProduct = productRepository.save(existingProduct);
-            return mapToDto(updatedProduct);
+        if (!existingProduct.getName().equalsIgnoreCase(request.getName()) && productRepository.existsByNameIgnoreCase(request.getName())) {
+            throw new BusinessRuleException("El nombre '" + request.getName() + "' ya está en uso por otro producto.");
         }
-        throw new RuntimeException("Producto no encontrado o inactivo");
+
+        productMapper.updateEntityFromDto(request, existingProduct);
+        existingProduct.setLastAudit(new Date());
+        
+        Product updatedProduct = productRepository.save(existingProduct);
+        return productMapper.toDto(updatedProduct);
     }
     
     @Override
     public void deleteProduct(String sku) {
-        Optional<Product> productOpt = productRepository.findById(sku);
+        Product product = productRepository.findById(sku)
+                .filter(Product::isActive)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado o ya es inactivo"));
+                
+        product.setActive(false);
+        productRepository.save(product);
+    }
 
-        if (productOpt.isPresent()) {
-            Product product = productOpt.get();
-            product.setActive(false);
-            productRepository.save(product);
+    @Override
+    public void restoreProduct(String sku) {
+        Product product = productRepository.findById(sku)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
+                
+        if (product.isActive()) {
+            throw new BusinessRuleException("El producto ya se encuentra activo");
         }
-    }
-
-    private ProductDto mapToDto(Product product) {
-        return ProductDto.builder()
-                .sku(product.getSku())
-                .name(product.getName())
-                .description(product.getDescription())
-                .status(product.getStatus())
-                .location(product.getLocation())
-                .stock(product.getStock())
-                .lastAudit(product.getLastAudit())
-                .innerDiameter(product.getInnerDiameter())
-                .outerDiameter(product.getOuterDiameter())
-                .width(product.getWidth())
-                .weight(product.getWeight())
-                .material(product.getMaterial())
-                .build();
-    }
-
-    private Product mapToEntity(ProductDto dto) {
-        return Product.builder()
-                .sku(dto.getSku())
-                .name(dto.getName())
-                .description(dto.getDescription())
-                .status(dto.getStatus())
-                .location(dto.getLocation())
-                .stock(dto.getStock())
-                .lastAudit(dto.getLastAudit())
-                .innerDiameter(dto.getInnerDiameter())
-                .outerDiameter(dto.getOuterDiameter())
-                .width(dto.getWidth())
-                .weight(dto.getWeight())
-                .material(dto.getMaterial())
-                .build();
+        
+        product.setActive(true);
+        productRepository.save(product);
     }
 }
