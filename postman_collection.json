@@ -86,6 +86,36 @@
       ]
     },
     {
+      "name": "Shifts",
+      "item": [
+        {
+          "name": "Get My Weekly Shifts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/shifts/me?weekOffset=0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "shifts", "me"],
+              "query": [
+                {
+                  "key": "weekOffset",
+                  "value": "0"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "Inventory",
       "item": [
         {

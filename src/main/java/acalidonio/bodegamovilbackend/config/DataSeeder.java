@@ -1,11 +1,9 @@
 package acalidonio.bodegamovilbackend.config;
 
-import acalidonio.bodegamovilbackend.domain.entities.Role;
-import acalidonio.bodegamovilbackend.domain.entities.User;
+import acalidonio.bodegamovilbackend.domain.entities.*;
+import acalidonio.bodegamovilbackend.repository.ShiftTemplateRepository;
 import acalidonio.bodegamovilbackend.repository.UserRepository;
-import acalidonio.bodegamovilbackend.domain.entities.Product;
 import acalidonio.bodegamovilbackend.repository.ProductRepository;
-import acalidonio.bodegamovilbackend.domain.entities.StockStatus;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.mindrot.jbcrypt.BCrypt;
@@ -13,7 +11,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -21,27 +23,88 @@ public class DataSeeder implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final ShiftTemplateRepository shiftTemplateRepository;
 
     @Override
     public void run(String @NonNull ... args) {
         // Reiniciar la base de datos
-        productRepository.deleteAll();
         userRepository.deleteAll();
+        shiftTemplateRepository.deleteAll();
+        productRepository.deleteAll();
+
+        ShiftTemplate mondayShift = ShiftTemplate.builder()
+                        .name("Lunes - Día Completo")
+                        .dayOfWeek(DayOfWeek.MONDAY)
+                        .startTime(LocalTime.of(8, 0))
+                        .endTime(LocalTime.of(16, 0))
+                        .build();
+        ShiftTemplate tuesdayShift = ShiftTemplate.builder()
+                        .name("Martes - Día Completo")
+                        .dayOfWeek(DayOfWeek.TUESDAY)
+                        .startTime(LocalTime.of(8, 0))
+                        .endTime(LocalTime.of(16, 0))
+                        .build();
+        ShiftTemplate wednesdayShift = ShiftTemplate.builder()
+                        .name("Miércoles - Día Completo")
+                        .dayOfWeek(DayOfWeek.WEDNESDAY)
+                        .startTime(LocalTime.of(8, 0))
+                        .endTime(LocalTime.of(16, 0))
+                        .build();
+        ShiftTemplate thursdayShift = ShiftTemplate.builder()
+                        .name("Jueves - Día Completo")
+                        .dayOfWeek(DayOfWeek.THURSDAY)
+                        .startTime(LocalTime.of(8, 0))
+                        .endTime(LocalTime.of(16, 0))
+                        .build();
+        ShiftTemplate fridayShift = ShiftTemplate.builder()
+                        .name("Viernes - Día Completo")
+                        .dayOfWeek(DayOfWeek.FRIDAY)
+                        .startTime(LocalTime.of(8, 0))
+                        .endTime(LocalTime.of(16, 0))
+                        .build();
+
+        ShiftTemplate mondayHalfShift = ShiftTemplate.builder()
+                        .name("Lunes - Medio Tiempo")
+                        .dayOfWeek(DayOfWeek.MONDAY)
+                        .startTime(LocalTime.of(8, 30))
+                        .endTime(LocalTime.of(12, 30))
+                        .build();
+        ShiftTemplate tuesdayHalfShift = ShiftTemplate.builder()
+                        .name("Martes - Medio Tiempo")
+                        .dayOfWeek(DayOfWeek.TUESDAY)
+                        .startTime(LocalTime.of(8, 30))
+                        .endTime(LocalTime.of(12, 30))
+                        .build();
+        ShiftTemplate wednesdayHalfShift = ShiftTemplate.builder()
+                        .name("Miércoles - Medio Tiempo")
+                        .dayOfWeek(DayOfWeek.WEDNESDAY)
+                        .startTime(LocalTime.of(8, 30))
+                        .endTime(LocalTime.of(12, 30))
+                        .build();
+        ShiftTemplate thursdayHalfShift = ShiftTemplate.builder()
+                        .name("Jueves - Medio Tiempo")
+                        .dayOfWeek(DayOfWeek.THURSDAY)
+                        .startTime(LocalTime.of(8, 30))
+                        .endTime(LocalTime.of(12, 30))
+                        .build();
+        ShiftTemplate fridayHalfShift = ShiftTemplate.builder()
+                        .name("Viernes - Medio Tiempo")
+                        .dayOfWeek(DayOfWeek.FRIDAY)
+                        .startTime(LocalTime.of(8, 30))
+                        .endTime(LocalTime.of(12, 30))
+                        .build();
+
+        shiftTemplateRepository.saveAll(List.of(mondayShift, tuesdayShift, wednesdayShift, thursdayShift, fridayShift, mondayHalfShift, tuesdayHalfShift, wednesdayHalfShift,  thursdayHalfShift, fridayHalfShift));
 
         String hash = BCrypt.hashpw("password123", BCrypt.gensalt());
 
-        userRepository.save(new User("EMP001",
-                "André C",
-                "AC",
-                Role.ADMIN,
-                hash)
-        );
-        userRepository.save(new User("EMP002",
-                "Eduardo C",
-                "EC",
-                Role.EMPLOYEE,
-                hash)
-        );
+        User admin = new User("EMP001", "André C", "AC", Role.ADMIN, hash, new HashSet<>());
+        User employee = new User("EMP002", "Eduardo C", "EC", Role.EMPLOYEE, hash, new HashSet<>());
+
+        admin.setShiftTemplates(Set.of(mondayShift, tuesdayShift, wednesdayShift, thursdayShift, fridayShift));
+        employee.setShiftTemplates(Set.of(mondayHalfShift, tuesdayHalfShift, wednesdayHalfShift,  thursdayHalfShift, fridayHalfShift));
+
+        userRepository.saveAll(List.of(admin, employee));
 
         productRepository.saveAll(List.of(
                     new Product("BRG-6204",
