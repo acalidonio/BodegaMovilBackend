@@ -1,11 +1,11 @@
 package acalidonio.bodegamovilbackend.config;
 
-import acalidonio.bodegamovilbackend.model.Role;
-import acalidonio.bodegamovilbackend.model.User;
+import acalidonio.bodegamovilbackend.domain.entities.Role;
+import acalidonio.bodegamovilbackend.domain.entities.User;
 import acalidonio.bodegamovilbackend.repository.UserRepository;
-import acalidonio.bodegamovilbackend.model.Product;
+import acalidonio.bodegamovilbackend.domain.entities.Product;
 import acalidonio.bodegamovilbackend.repository.ProductRepository;
-import acalidonio.bodegamovilbackend.model.StockStatus;
+import acalidonio.bodegamovilbackend.domain.entities.StockStatus;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.mindrot.jbcrypt.BCrypt;
