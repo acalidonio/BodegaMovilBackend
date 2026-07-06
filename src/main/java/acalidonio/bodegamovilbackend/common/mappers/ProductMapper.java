@@ -24,6 +24,7 @@ public class ProductMapper {
                 .width(request.getWidth())
                 .weight(request.getWeight())
                 .material(request.getMaterial())
+                .imageUrl(request.getImageUrl())
                 .active(true)
                 .build();
     }
@@ -39,6 +40,7 @@ public class ProductMapper {
         entity.setWidth(request.getWidth());
         entity.setWeight(request.getWeight());
         entity.setMaterial(request.getMaterial());
+        entity.setImageUrl(request.getImageUrl());
     }
 
     public ProductResponse toDto(Product entity) {
@@ -56,6 +58,7 @@ public class ProductMapper {
                 .weight(entity.getWeight())
                 .material(entity.getMaterial())
                 .active(entity.isActive())
+                .imageUrl(entity.getImageUrl())
                 .build();
     }
 

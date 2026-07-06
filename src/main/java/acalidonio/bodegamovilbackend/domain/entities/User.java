@@ -36,5 +36,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "shift_template_id")
     )
     private Set<ShiftTemplate> shiftTemplates = new HashSet<>();
+    
+    private String imageUrl;
 }
 

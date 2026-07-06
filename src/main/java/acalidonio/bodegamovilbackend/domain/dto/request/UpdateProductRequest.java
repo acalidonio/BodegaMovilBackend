@@ -30,4 +30,5 @@ public class UpdateProductRequest {
     private String width;
     private String weight;
     private String material;
+    private String imageUrl;
 }

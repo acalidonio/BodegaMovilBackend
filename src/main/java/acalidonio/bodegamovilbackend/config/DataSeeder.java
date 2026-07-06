@@ -104,8 +104,8 @@ public class DataSeeder implements CommandLineRunner {
 
         String hash = BCrypt.hashpw("password123", BCrypt.gensalt());
 
-        User admin = new User("EMP001", "André C", "AC", Role.ADMIN, hash, new HashSet<>());
-        User employee = new User("EMP002", "Eduardo C", "EC", Role.EMPLOYEE, hash, new HashSet<>());
+        User admin = new User("EMP001", "André C", "AC", Role.ADMIN, hash, new HashSet<>(), "https://i.pravatar.cc/150?u=TESTEMP001");
+        User employee = new User("EMP002", "Eduardo C", "EC", Role.EMPLOYEE, hash, new HashSet<>(), "https://i.pravatar.cc/150?u=TESTEMP002");
 
         admin.setShiftTemplates(Set.of(mondayShift, tuesdayShift, wednesdayShift, thursdayShift, fridayShift, sundayHalfShift));
         employee.setShiftTemplates(Set.of(mondayHalfShift, tuesdayHalfShift, wednesdayHalfShift,  thursdayHalfShift, fridayHalfShift));
@@ -125,7 +125,8 @@ public class DataSeeder implements CommandLineRunner {
                             "14mm",
                             "105g",
                             "Acero Inoxidable",
-                            true
+                            true,
+                            "https://cdn.pixabay.com/photo/2016/03/04/15/27/ball-bearings-1236203_1280.png"
                     ),
                     new Product("BRG-6205",
                             "Rodamiento Bolas 6205",
@@ -139,7 +140,8 @@ public class DataSeeder implements CommandLineRunner {
                             "15mm",
                             "130g",
                             "Acero al Carbono",
-                            true
+                            true,
+                            "https://cdn.pixabay.com/photo/2016/03/04/15/27/ball-bearings-1236203_1280.png"
                     ),
                     new Product("BLT-M10X50",
                             "Perno Hexagonal M10x50",
@@ -153,7 +155,8 @@ public class DataSeeder implements CommandLineRunner {
                             "10mm",
                             "40g",
                             "Acero Inoxidable",
-                            true
+                            true,
+                            "https://images.unsplash.com/photo-1704732060817-b62414c6004c"
                     ),
                     new Product("FLG-2IN-150",
                             "Brida 2 pulgadas",
@@ -167,7 +170,8 @@ public class DataSeeder implements CommandLineRunner {
                             "20mm",
                             "2kg",
                             "Hierro Fundido",
-                            true
+                            true,
+                            "https://images.pexels.com/photos/12951626/pexels-photo-12951626.jpeg"
                     )
             ));
         System.out.println("Seeder corrió correctamente");

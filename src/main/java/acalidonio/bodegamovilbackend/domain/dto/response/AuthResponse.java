@@ -13,5 +13,6 @@ public class AuthResponse {
     private String employeeName;
     private String initials;
     private Role role;
+    private String profileImageUrl;
 }
 

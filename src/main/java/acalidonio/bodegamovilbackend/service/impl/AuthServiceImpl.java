@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
 
             if (BCrypt.checkpw(request.getPassword(), user.getPasswordHash())) {
                 String token = jwtUtil.generateToken(user.getEmployeeId(), user.getRole().name());
-                return new AuthResponse(token, user.getName(), user.getInitials(), user.getRole());
+                return new AuthResponse(token, user.getName(), user.getInitials(), user.getRole(), user.getImageUrl());
             }
         }
         throw new BusinessRuleException("Credenciales inválidas");

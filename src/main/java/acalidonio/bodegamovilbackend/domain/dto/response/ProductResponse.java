@@ -26,4 +26,5 @@ public class ProductResponse {
     private String weight;
     private String material;
     private boolean active;
+    private String imageUrl;
 }
