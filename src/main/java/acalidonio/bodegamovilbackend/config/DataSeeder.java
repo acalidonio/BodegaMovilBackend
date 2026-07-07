@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -94,11 +95,11 @@ public class DataSeeder implements CommandLineRunner {
                         .endTime(LocalTime.of(12, 30))
                         .build();
         ShiftTemplate sundayHalfShift = ShiftTemplate.builder()
-                .name("Domingo - Medio Tiempo")
-                .dayOfWeek(DayOfWeek.SUNDAY)
-                .startTime(LocalTime.of(8, 30))
-                .endTime(LocalTime.of(12, 30))
-                .build();
+                        .name("Domingo - Medio Tiempo")
+                        .dayOfWeek(DayOfWeek.SUNDAY)
+                        .startTime(LocalTime.of(8, 30))
+                        .endTime(LocalTime.of(12, 30))
+                        .build();
 
         shiftTemplateRepository.saveAll(List.of(mondayShift, tuesdayShift, wednesdayShift, thursdayShift, fridayShift, mondayHalfShift, tuesdayHalfShift, wednesdayHalfShift,  thursdayHalfShift, fridayHalfShift, sundayHalfShift));
 
@@ -112,7 +113,7 @@ public class DataSeeder implements CommandLineRunner {
 
         userRepository.saveAll(List.of(admin, employee));
 
-        productRepository.saveAll(List.of(
+        List<Product> initialProducts = new ArrayList<>(List.of(
                     new Product("BRG-6204",
                             "Rodamiento Bolas 6204",
                             "Rodamiento de acero inoxidable para motores eléctricos",
@@ -178,6 +179,28 @@ public class DataSeeder implements CommandLineRunner {
                             "https://images.pexels.com/photos/12951626/pexels-photo-12951626.jpeg"
                     )
             ));
+
+        for (int i = 1; i <= 30; i++) {
+            initialProducts.add(new Product(
+                    "GEN-" + i + "-" + (int)(Math.random() * 10000),
+                    "Producto Generado " + i,
+                    null,
+                    ProductCategory.values()[(int)(Math.random() * ProductCategory.values().length)],
+                    StockStatus.AVAILABLE,
+                    "Bodega Central",
+                    (int)(Math.random() * 100),
+                    new Date(System.currentTimeMillis()),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    true,
+                    null
+            ));
+        }
+
+        productRepository.saveAll(initialProducts);
         System.out.println("Seeder corrió correctamente");
     }
 }
