@@ -4,6 +4,7 @@ import acalidonio.bodegamovilbackend.common.mappers.ProductMapper;
 import acalidonio.bodegamovilbackend.domain.dto.request.CreateProductRequest;
 import acalidonio.bodegamovilbackend.domain.dto.request.UpdateProductRequest;
 import acalidonio.bodegamovilbackend.domain.dto.response.ProductResponse;
+import acalidonio.bodegamovilbackend.domain.entities.ProductCategory;
 import acalidonio.bodegamovilbackend.exceptions.BusinessRuleException;
 import acalidonio.bodegamovilbackend.exceptions.ResourceNotFoundException;
 import acalidonio.bodegamovilbackend.domain.entities.Product;
@@ -30,11 +31,17 @@ public class InventoryServiceImpl implements InventoryService {
     }
     
     @Override
-    public Page<ProductResponse> searchProducts(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
+    public Page<ProductResponse> searchProducts(String query, ProductCategory category, Pageable pageable) {
+        boolean hasQuery = query != null && !query.trim().isEmpty();
+        boolean hasCategory = category != null;
+
+        if (!hasQuery && !hasCategory) {
             return getAllProducts(pageable);
         }
-        Page<Product> products = productRepository.searchProducts(query, pageable);
+        
+        String safeQuery = hasQuery ? query.trim() : "";
+
+        Page<Product> products = productRepository.searchProducts(safeQuery, category, pageable);
         return productMapper.toDtoList(products);
     }
     

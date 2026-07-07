@@ -1,5 +1,6 @@
 package acalidonio.bodegamovilbackend.domain.dto.response;
 
+import acalidonio.bodegamovilbackend.domain.entities.ProductCategory;
 import acalidonio.bodegamovilbackend.domain.entities.StockStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +17,7 @@ public class ProductResponse {
     private String sku;
     private String name;
     private String description;
+    private ProductCategory category;
     private StockStatus status;
     private String location;
     private int stock;

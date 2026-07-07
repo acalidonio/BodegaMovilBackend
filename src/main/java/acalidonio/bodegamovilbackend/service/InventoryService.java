@@ -3,12 +3,13 @@ package acalidonio.bodegamovilbackend.service;
 import acalidonio.bodegamovilbackend.domain.dto.request.CreateProductRequest;
 import acalidonio.bodegamovilbackend.domain.dto.request.UpdateProductRequest;
 import acalidonio.bodegamovilbackend.domain.dto.response.ProductResponse;
+import acalidonio.bodegamovilbackend.domain.entities.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface InventoryService {
     Page<ProductResponse> getAllProducts(Pageable pageable);
-    Page<ProductResponse> searchProducts(String query, Pageable pageable);
+    Page<ProductResponse> searchProducts(String query, ProductCategory category, Pageable pageable);
     ProductResponse getProductBySku(String sku);
 
     ProductResponse createProduct(CreateProductRequest request);

@@ -5,6 +5,7 @@ import acalidonio.bodegamovilbackend.domain.dto.request.UpdateProductRequest;
 import acalidonio.bodegamovilbackend.domain.dto.response.GeneralResponse;
 import acalidonio.bodegamovilbackend.domain.dto.response.PageableResponse;
 import acalidonio.bodegamovilbackend.domain.dto.response.ProductResponse;
+import acalidonio.bodegamovilbackend.domain.entities.ProductCategory;
 import acalidonio.bodegamovilbackend.service.InventoryService;
 
 import org.springframework.data.domain.Page;
@@ -25,9 +26,10 @@ public class InventoryController {
     @GetMapping
     public ResponseEntity<GeneralResponse<PageableResponse<ProductResponse>>> getInventory(
             @RequestParam(required = false) String query,
+            @RequestParam(required = false) ProductCategory category,
             Pageable pageable) {
         
-        Page<ProductResponse> page = inventoryService.searchProducts(query, pageable);
+        Page<ProductResponse> page = inventoryService.searchProducts(query, category, pageable);
         
         PageableResponse<ProductResponse> pageableResponse = PageableResponse.<ProductResponse>builder()
                 .content(page.getContent())

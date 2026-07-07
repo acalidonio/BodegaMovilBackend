@@ -16,6 +16,7 @@ public class ProductMapper {
                 .sku(request.getSku())
                 .name(request.getName())
                 .description(request.getDescription())
+                .category(request.getCategory())
                 .status(getStockStatusFromStock(request.getStock()))
                 .location(request.getLocation())
                 .stock(request.getStock())
@@ -32,6 +33,7 @@ public class ProductMapper {
     public void updateEntityFromDto(UpdateProductRequest request, Product entity) {
         entity.setName(request.getName());
         entity.setDescription(request.getDescription());
+        entity.setCategory(request.getCategory());
         entity.setStatus(getStockStatusFromStock(request.getStock()));
         entity.setLocation(request.getLocation());
         entity.setStock(request.getStock());
@@ -48,6 +50,7 @@ public class ProductMapper {
                 .sku(entity.getSku())
                 .name(entity.getName())
                 .description(entity.getDescription())
+                .category(entity.getCategory())
                 .status(entity.getStatus())
                 .location(entity.getLocation())
                 .stock(entity.getStock())

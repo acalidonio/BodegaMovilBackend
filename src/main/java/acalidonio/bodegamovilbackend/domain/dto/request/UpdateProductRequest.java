@@ -1,5 +1,6 @@
 package acalidonio.bodegamovilbackend.domain.dto.request;
 
+import acalidonio.bodegamovilbackend.domain.entities.ProductCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -18,6 +19,9 @@ public class UpdateProductRequest {
     private String name;
 
     private String description;
+    
+    @NotNull(message = "La categoría es requerida")
+    private ProductCategory category;
 
     private String location;
 

@@ -21,6 +21,10 @@ public class Product {
     
     private String name;
     private String description;
+    
+    @Enumerated(EnumType.STRING)
+    private ProductCategory category;
+    
     @Enumerated(EnumType.STRING)
     private StockStatus status;
     private String location;

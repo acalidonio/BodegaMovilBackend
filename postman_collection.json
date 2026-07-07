@@ -173,6 +173,31 @@
           }
         },
         {
+          "name": "Search Products by Category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/inventory?category=RODAMIENTOS",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "inventory"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "RODAMIENTOS"
+                }
+              ]
+            }
+          }
+        },
+        {
           "name": "Get Product by SKU",
           "request": {
             "method": "GET",
@@ -207,7 +232,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"sku\": \"NEW-123\",\n  \"name\": \"Nuevo Producto\",\n  \"description\": \"Descripción de prueba\",\n  \"status\": \"AVAILABLE\",\n  \"location\": \"Estante Z\",\n  \"stock\": 10,\n  \"innerDiameter\": \"10mm\",\n  \"outerDiameter\": \"20mm\",\n  \"width\": \"5mm\",\n  \"weight\": \"50g\",\n  \"material\": \"Acero\"\n}"
+              "raw": "{\n  \"sku\": \"NEW-123\",\n  \"name\": \"Nuevo Producto\",\n  \"description\": \"Descripción de prueba\",\n  \"category\": \"RODAMIENTOS\",\n  \"status\": \"AVAILABLE\",\n  \"location\": \"Estante Z\",\n  \"stock\": 10,\n  \"innerDiameter\": \"10mm\",\n  \"outerDiameter\": \"20mm\",\n  \"width\": \"5mm\",\n  \"weight\": \"50g\",\n  \"material\": \"Acero\",\n  \"imageUrl\": \"https://example.com/product.png\"\n}"
             },
             "url": {
               "raw": "http://localhost:8080/api/inventory",
@@ -234,7 +259,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Producto Actualizado\",\n  \"description\": \"Descripción actualizada\",\n  \"status\": \"LOW_STOCK\",\n  \"location\": \"Estante Y\",\n  \"stock\": 2,\n  \"innerDiameter\": \"10mm\",\n  \"outerDiameter\": \"20mm\",\n  \"width\": \"5mm\",\n  \"weight\": \"50g\",\n  \"material\": \"Acero\"\n}"
+              "raw": "{\n  \"name\": \"Producto Actualizado\",\n  \"description\": \"Descripción actualizada\",\n  \"category\": \"RODAMIENTOS\",\n  \"status\": \"LOW_STOCK\",\n  \"location\": \"Estante Y\",\n  \"stock\": 2,\n  \"innerDiameter\": \"10mm\",\n  \"outerDiameter\": \"20mm\",\n  \"width\": \"5mm\",\n  \"weight\": \"50g\",\n  \"material\": \"Acero\",\n  \"imageUrl\": \"https://example.com/product_updated.png\"\n}"
             },
             "url": {
               "raw": "http://localhost:8080/api/inventory/NEW-123",
@@ -280,6 +305,49 @@
               "host": ["localhost"],
               "port": "8080",
               "path": ["api", "inventory", "NEW-123", "restore"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/dashboard/stats",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "dashboard", "stats"]
+            }
+          }
+        },
+        {
+          "name": "Get Recent Products",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/dashboard/recent",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "dashboard", "recent"]
             }
           }
         }
