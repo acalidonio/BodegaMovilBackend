@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,17 +32,18 @@ public class InventoryServiceImpl implements InventoryService {
     }
     
     @Override
-    public Page<ProductResponse> searchProducts(String query, ProductCategory category, Pageable pageable) {
+    public Page<ProductResponse> searchProducts(String query, List<ProductCategory> categories, Pageable pageable) {
         boolean hasQuery = query != null && !query.trim().isEmpty();
-        boolean hasCategory = category != null;
+        boolean hasCategory = categories != null && !categories.isEmpty();
 
         if (!hasQuery && !hasCategory) {
             return getAllProducts(pageable);
         }
         
         String safeQuery = hasQuery ? query.trim() : "";
+        List<ProductCategory> safeCategories = hasCategory ? categories : null;
 
-        Page<Product> products = productRepository.searchProducts(safeQuery, category, pageable);
+        Page<Product> products = productRepository.searchProducts(safeQuery, safeCategories, pageable);
         return productMapper.toDtoList(products);
     }
     

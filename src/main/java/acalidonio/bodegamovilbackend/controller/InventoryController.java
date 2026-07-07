@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/inventory")
 @RequiredArgsConstructor
@@ -26,10 +28,10 @@ public class InventoryController {
     @GetMapping
     public ResponseEntity<GeneralResponse<PageableResponse<ProductResponse>>> getInventory(
             @RequestParam(required = false) String query,
-            @RequestParam(required = false) ProductCategory category,
+            @RequestParam(required = false) List<ProductCategory> categories,
             Pageable pageable) {
         
-        Page<ProductResponse> page = inventoryService.searchProducts(query, category, pageable);
+        Page<ProductResponse> page = inventoryService.searchProducts(query, categories, pageable);
         
         PageableResponse<ProductResponse> pageableResponse = PageableResponse.<ProductResponse>builder()
                 .content(page.getContent())

@@ -23,9 +23,9 @@ public interface ProductRepository extends JpaRepository<Product, String> {
             "WHERE p.active = true " +
             "AND (LOWER(p.sku) LIKE LOWER(CONCAT('%', :query, '%')) " +
             "OR LOWER(p.name) LIKE LOWER(CONCAT('%', :query, '%'))) " +
-            "AND (:category IS NULL OR p.category = :category)"
+            "AND (:categories IS NULL OR p.category IN :categories)"
     )
-    Page<Product> searchProducts(@Param("query") String query, @Param("category") ProductCategory category, Pageable pageable);
+    Page<Product> searchProducts(@Param("query") String query, @Param("categories") List<ProductCategory> categories, Pageable pageable);
 
     boolean existsByNameIgnoreCase(String value);
 

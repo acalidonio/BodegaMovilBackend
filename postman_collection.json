@@ -183,15 +183,15 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/inventory?category=RODAMIENTOS",
+              "raw": "http://localhost:8080/api/inventory?categories=RODAMIENTOS,BRIDAS",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8080",
               "path": ["api", "inventory"],
               "query": [
                 {
-                  "key": "category",
-                  "value": "RODAMIENTOS"
+                  "key": "categories",
+                  "value": "RODAMIENTOS,BRIDAS"
                 }
               ]
             }
