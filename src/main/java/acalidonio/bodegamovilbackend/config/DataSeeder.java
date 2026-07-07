@@ -28,10 +28,9 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String @NonNull ... args) {
-        // Reiniciar la base de datos
-        userRepository.deleteAll();
-        shiftTemplateRepository.deleteAll();
-        productRepository.deleteAll();
+        if (userRepository.count() > 0) {
+            return;
+        }
 
         ShiftTemplate mondayShift = ShiftTemplate.builder()
                         .name("Lunes - Día Completo")
