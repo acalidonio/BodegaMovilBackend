@@ -105,7 +105,7 @@ public class DataSeeder implements CommandLineRunner {
         String hash = BCrypt.hashpw("password123", BCrypt.gensalt());
 
         User admin = new User("EMP001", "André C", "AC", Role.ADMIN, hash, new HashSet<>(), "https://i.pravatar.cc/150?u=TESTEMP001");
-        User employee = new User("EMP002", "Eduardo C", "EC", Role.EMPLOYEE, hash, new HashSet<>(), "https://i.pravatar.cc/150?u=TESTEMP002");
+        User employee = new User("EMP002", "Eduardo C", "EC", Role.EMPLOYEE, hash, new HashSet<>(), null);
 
         admin.setShiftTemplates(Set.of(mondayShift, tuesdayShift, wednesdayShift, thursdayShift, fridayShift, sundayHalfShift));
         employee.setShiftTemplates(Set.of(mondayHalfShift, tuesdayHalfShift, wednesdayHalfShift,  thursdayHalfShift, fridayHalfShift));
@@ -126,7 +126,7 @@ public class DataSeeder implements CommandLineRunner {
                             "105g",
                             "Acero Inoxidable",
                             true,
-                            "https://cdn.pixabay.com/photo/2016/03/04/15/27/ball-bearings-1236203_1280.png"
+                            null
                     ),
                     new Product("BRG-6205",
                             "Rodamiento Bolas 6205",
