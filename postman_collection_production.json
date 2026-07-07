@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "67805e7d-efce-4380-a1df-ebabd417c1c4",
-    "name": "Bodega Movil Backend",
+    "_postman_id": "846c5b30-892f-4118-9a79-229ab6555bbf",
+    "name": "Bodega Movil Backend - Production",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "55155249",
-    "_collection_link": "https://go.postman.co/collection/55155249-67805e7d-efce-4380-a1df-ebabd417c1c4?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/55155249-846c5b30-892f-4118-9a79-229ab6555bbf?source=collection_link"
   },
   "item": [
     {
@@ -40,12 +40,14 @@
               "raw": "{\n  \"employeeId\": \"EMP001\",\n  \"password\": \"password123\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/api/auth/login",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/auth/login",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "auth",
@@ -85,12 +87,14 @@
               "raw": "{\n  \"employeeId\": \"EMP002\",\n  \"password\": \"password123\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/api/auth/login",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/auth/login",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "auth",
@@ -116,12 +120,14 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/shifts/me?weekOffset=0",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/shifts/me?weekOffset=0",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "shifts",
@@ -153,12 +159,14 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/inventory?page=0&size=2",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/inventory?page=0&size=2",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "inventory"
@@ -188,12 +196,14 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/inventory?query=Rodamiento",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/inventory?query=Rodamiento",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "inventory"
@@ -219,12 +229,14 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/inventory?categories=RODAMIENTOS,BRIDAS",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/inventory?categories=RODAMIENTOS,BRIDAS",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "inventory"
@@ -250,12 +262,14 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/inventory/BRG-6204",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/inventory/BRG-6204",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "inventory",
@@ -284,12 +298,14 @@
               "raw": "{\n  \"sku\": \"NEW-123\",\n  \"name\": \"Nuevo Producto\",\n  \"description\": \"Descripción de prueba\",\n  \"category\": \"RODAMIENTOS\",\n  \"location\": \"Estante Z\",\n  \"stock\": 10,\n  \"innerDiameter\": \"10mm\",\n  \"outerDiameter\": \"20mm\",\n  \"width\": \"5mm\",\n  \"weight\": \"50g\",\n  \"material\": \"Acero\",\n  \"imageUrl\": \"https://example.com/product.png\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/api/inventory",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/inventory",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "inventory"
@@ -317,12 +333,14 @@
               "raw": "{\n  \"name\": \"Producto Actualizado\",\n  \"description\": \"Descripción actualizada\",\n  \"category\": \"RODAMIENTOS\",\n  \"location\": \"Estante Y\",\n  \"stock\": 2,\n  \"innerDiameter\": \"10mm\",\n  \"outerDiameter\": \"20mm\",\n  \"width\": \"5mm\",\n  \"weight\": \"50g\",\n  \"material\": \"Acero\",\n  \"imageUrl\": \"https://example.com/product_updated.png\"\n}"
             },
             "url": {
-              "raw": "http://localhost:8080/api/inventory/NEW-123",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/inventory/NEW-123",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "inventory",
@@ -343,12 +361,14 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/inventory/NEW-123",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/inventory/NEW-123",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "inventory",
@@ -369,12 +389,14 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/inventory/NEW-123/restore",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/inventory/NEW-123/restore",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "inventory",
@@ -401,12 +423,14 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/dashboard/stats",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/dashboard/stats",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "dashboard",
@@ -427,12 +451,14 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:8080/api/dashboard/recent",
-              "protocol": "http",
+              "raw": "https://bodegamovilbackend-production.up.railway.app/api/dashboard/recent",
+              "protocol": "https",
               "host": [
-                "localhost"
+                "bodegamovilbackend-production",
+                "up",
+                "railway",
+                "app"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "dashboard",
