@@ -5,6 +5,7 @@ import acalidonio.bodegamovilbackend.common.validations.annotations.UniqueProduc
 import acalidonio.bodegamovilbackend.domain.entities.ProductCategory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 public class CreateProductRequest {
 
     @NotBlank(message = "El SKU es requerido")
+    @Pattern(regexp = "^[a-zA-Z0-9_-]+$", message = "El SKU solo puede contener letras, números, guiones y guiones bajos (sin espacios)")
     @UniqueProductSku
     private String sku;
 
