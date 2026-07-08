@@ -2,6 +2,7 @@ package acalidonio.bodegamovilbackend.exceptions;
 
 import acalidonio.bodegamovilbackend.domain.dto.response.ApiErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -56,6 +57,20 @@ public class GlobalExceptionHandler {
             message += String.format(" Valores aceptados: %s", Arrays.toString(ex.getRequiredType().getEnumConstants()));
         }
         return buildResponse(HttpStatus.BAD_REQUEST, message, request.getRequestURI());
+    }
+
+    // DB Constraint Violation
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiErrorResponse> handleDataIntegrity(HttpServletRequest request) {
+        String message = "No se pudo procesar la solicitud por un conflicto en los datos (ej. texto demasiado largo o valor duplicado).";
+        return buildResponse(HttpStatus.BAD_REQUEST, message, request.getRequestURI());
+    }
+
+    // Fallback Generic Error
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiErrorResponse> handleAllExceptions(HttpServletRequest request) {
+        String message = "Ha ocurrido un error interno en el servidor.";
+        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, message, request.getRequestURI());
     }
 
     private ResponseEntity<ApiErrorResponse> buildResponse(HttpStatus status, Object message, String uri) {
